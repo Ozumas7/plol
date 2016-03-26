@@ -60,6 +60,11 @@ class Validator
         throw new CacheTimeFileException("number of minutes invalid $time");
     }
 
+    /**
+     * @param $cache
+     * @return mixed
+     * @throws CacheException
+     */
     public static function cacheValidator($cache)
     {
         if (is_bool($cache)) {

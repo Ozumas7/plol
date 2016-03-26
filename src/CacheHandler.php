@@ -50,7 +50,6 @@ class CacheHandler
     {
         $this->fileName = $name;
     }
-
     /**
      * @return mixed
      */
@@ -112,6 +111,9 @@ class CacheHandler
         return $item->save();
     }
 
+    /**
+     * @return mixed
+     */
     public function getCacheExpireTime(){
         return $this->expireTime;
     }

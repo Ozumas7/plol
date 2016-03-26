@@ -140,6 +140,12 @@ abstract class ResourceHandler
     {
         return $this->uriResource;
     }
+
+    /**
+     * @param $time
+     * @return $this
+     * @throws Exceptions\CacheTimeFileException
+     */
     public function setCacheTimeExpired($time){
         $time = Validator::cacheFileTimeExpiredValidator($time);
         $this->cache->setTimeExpire($time);

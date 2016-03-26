@@ -20,9 +20,10 @@ class ChampionMastery extends ResourceHandler
     protected $apimode = 'mastery';
 
     /**
-     * @param $platformid
      * @param $summonerid
+     * @param $championid
      * @return mixed
+     * @throws \Kolter\PLoL\Exceptions\RegionException
      */
     public function champion($summonerid,$championid)
     {
@@ -33,6 +34,12 @@ class ChampionMastery extends ResourceHandler
 
         return $this->getResource();
     }
+
+    /**
+     * @param $summonerid
+     * @return mixed
+     * @throws \Kolter\PLoL\Exceptions\RegionException
+     */
     public function champions($summonerid)
     {
         $this->args['platformid'] = Utility::regionToPlatForm($this->args['region']);
@@ -41,6 +48,12 @@ class ChampionMastery extends ResourceHandler
 
         return $this->getResource();
     }
+
+    /**
+     * @param $summonerid
+     * @return mixed
+     * @throws \Kolter\PLoL\Exceptions\RegionException
+     */
     public function score($summonerid)
     {
         $this->args['platformid'] = Utility::regionToPlatForm($this->args['region']);
@@ -49,6 +62,12 @@ class ChampionMastery extends ResourceHandler
 
         return $this->getResource();
     }
+
+    /**
+     * @param $summonerid
+     * @return mixed
+     * @throws \Kolter\PLoL\Exceptions\RegionException
+     */
     public function topchampions($summonerid)
     {
         $this->args['platformid'] = Utility::regionToPlatForm($this->args['region']);

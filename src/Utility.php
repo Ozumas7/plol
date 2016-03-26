@@ -49,6 +49,11 @@ class Utility
         return (json_last_error() == 0) ? true : false;
     }
 
+    /**
+     * @param $region
+     * @return mixed
+     * @throws RegionException
+     */
     public static function regionToPlatForm($region){
         $regions = (new ConfigHandler())->getRegions();
         if (property_exists($regions,$region)){
@@ -57,10 +62,16 @@ class Utility
         throw new RegionException($region. ' not found');
     }
 
+    /**
+     * @return mixed
+     */
     public static function getPlataforms(){
         return (new ConfigHandler())->getRegions();
     }
 
+    /**
+     * @return array
+     */
     public static function getRegions(){
         return array_keys(get_object_vars((new ConfigHandler())->getRegions()));
     }

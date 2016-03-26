@@ -31,7 +31,6 @@ class RequestHandler
      * @var CacheHandler
      */
     protected $cache;
-
     /**
      * RequestHandler constructor.
      * @param ResourceHandler $class
@@ -45,7 +44,6 @@ class RequestHandler
         $this->cacheMode = $class->cacheMode;
         $this->request();
     }
-
     /**
      *
      */
@@ -53,7 +51,6 @@ class RequestHandler
     {
         $this->response = $this->cache->getCacheFile();;
     }
-
     /**
      *
      */
@@ -63,7 +60,6 @@ class RequestHandler
             $this->cache->setInCache($this->getResponse());
         }
     }
-
     /**
      * @return $this
      */
@@ -78,7 +74,6 @@ class RequestHandler
         $this->requestHandler();
         return $this;
     }
-
     /**
      * @return $this
      */
@@ -96,8 +91,6 @@ class RequestHandler
 
         return $this;
     }
-
-
     /**
      * @return array
      */
