@@ -26,6 +26,7 @@ class NoSleepIfRateLimitedTest extends AbstractTestClass
         for ($i=0;$i<12;$i++){
         $this->resource=$this->resource2->get('12');
         }
-        $this->assertEquals($this->resource['code'],429);
+        $this->assertArrayHasKey($this->resource,'status');
+        $this->assertEquals($this->resource['status']['status_code'],429);
     }
 }
