@@ -19,14 +19,14 @@ class NoSleepIfRateLimitedTest extends AbstractTestClass
 
     protected $resource2;
 
-    public function testError404(){
+    public function testError429(){
         $this->resource2 = new Champion($this->apikey());
         $this->resource2->setCache(false)->setOutputMode(new ArrayOutput())->
         setErrorCodeHandler(new NoSleepIfRateLimited());
         for ($i=0;$i<12;$i++){
         $this->resource=$this->resource2->get('12');
         }
-        $this->assertArrayHasKey($this->resource,'status');
-        $this->assertEquals($this->resource['status']['status_code'],429);
+        $this->assertArrayHasKey('code',$this->resource);
+        $this->assertEquals($this->resource['code'],429);
     }
 }
