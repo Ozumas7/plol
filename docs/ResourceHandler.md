@@ -3,95 +3,121 @@ ResourceHandler (abstract class)
 Every resource extends from this class.
 It handles the building process of attributes, gets the URI of the resouce and asks the RequestHandler the resource.
 
-[Click here to a longer explanation](#explanation)
 
-### API
+## Use
 
-#### __construct() 
-Constructor of the class, it hasn't got any arguments.,
+First you need to instanciate a Resource class (champion, staticdata, summoner etc..) with an Api Key
 
 ```php
-$game = new Champion();
+$champion = new Champion('{YOUR API KEY HERE'});
 
 ```
 
+Then use what method you want.
 
-#### getErrors() ErrorHandler
-Gets an ErrorHandler object of the class in order to check if there are some errors and why has failed.
-[Click here to know more about the ErrorHandler class](ErrorHandler.md)
-
-```php
-$game = new Champion();
-$errors = $game->getErrors();
-echo $errors->getErrorMessages();
-```
-
-#### getUriResource() String
-Get the uri to the League of Legends API of the resource built.
+** For Example**: The Champion class has a **get** method that returns all champions or a unique champion if $id is given
 
 ```php
-$game = new Champion();
-$game->get(12355);
-$cacheName = $game->getResourceUri();
-//It will output https://euw.api.pvp.net/api/lol/euw/v1.2/champion/12355?api_key={YOUR API KEY HERE}
+$champion = new Champion('{YOUR API KEY HERE'});
+echo $champion->get('12'); //Returns a champion with id '12'
+echo $champion->get(); //Returns all champions
 
 ```
 
-#### setApiKey	(String $apikey) $this
-Set a different api key to the resource (this is not permanent, just in this instance).
+Please check docs to full explanation of methods of different resource classes.
+
+### How to set a specify a region
 
 ```php
-$game = (new Champion())->setApiKey("{API KEY}");
+$champion = new Champion('{YOUR API KEY HERE'})->setRegion('na');
+
+```
+**Please note**: Please check the [Regional Endpoints](https://developer.riotgames.com/docs/regional-endpoints)
+
+## How to set an output mode
+
+```php
+$champion = new Champion('{YOUR API KEY HERE'})->setOutputMode(new ObjectOutput());
+
 ```
 
-#### setCache(boolean $cache) $this
-If true results will be cached, if it is false it won't
+It will return a php object.
+
+** Output modes available**:
+- Json: JsonOutput() (*by default*)
+- php object: ObjectOutput()
+- php array: ArrayOutput()
+- yaml: YamlOutput()
+
+[Check this section to create new Output modes](#How to create new output modes)
+
+## How to activate/deactivate cache in a specific resource
 
 ```php
-$game = (new Champion())->setCache(true);
+$noncachedchampion = new Champion('{YOUR API KEY HERE'})->setCacheMode(false);
+$cachedchampion = new Champion('{YOUR API KEY HERE'})->setCacheMode(true);
+
 ```
 
-#### setCacheTimeExpired(Integer $time) $this
-Sets how many minutes the cache will expire.
+## How to set an ErrorCodeHandler
+
+By default, it will be used the **ErrorCodeHandler** class that implements the **ErrorCodeInterface**. 
+This class implement new error code messages and  a rate limiter sleep mode: If you reach the rate limit of your api key, the system will sleep by numbers of seconds left.
+
+If you don't want this, just use the **NoSleepIfRateLimited()** class that will output messages code as the LOL API does and won't sleep as well.
 
 ```php
-$game = (new Champion())->setCacheTimeExpired(60);
+$champion = new Champion('{YOUR API KEY HERE'})->setErrorCodeHandler(new NoSleepIfRateLimited());
+
 ```
 
-#### setConfigFile(String $file,String $folder=config) $this
-Change the config file file, this can be userful in order to build tests around diferent configuration or ApiKeys
+If you want to implements your own error code handler, please [check this section](#How to implement my own error code handler)
+
+## How to get a resource by a custom url
+
+Create an instance of any resource and use the **getCustomResource($url)**
+```php
+$champion = new Champion('{YOUR API KEY HERE'})
+->getCustomResource('https://euw.api.pvp.net/api/lol/euw/v1.2/champion?api_key={{yourapikey}}');
+
+```
+So this seems pretty dumb but it is an approach of what I want to do in the future: create a general library that get and url and implements all what this library does.
+So in the future plol will be a library that create uris of the League of Legends methods and will use a new library that cache results, handler errors etc...
+
+##How to create new output modes
+
+Create a class, name it as you wish and implements the **OutputInterface** and create a **load($resource)** method that get a json resource so you can modify this resource as you wish.
+
+### TextOutput
+
+In this example I will create a **TextOutput** class that will return resources in plain text
+So I created a class called **TextOutput** and implements the **OutputInterface**
 
 ```php
-$game = new Champion();
-$game->setConfigFile("config.dev");
-//Now, this object will use the config indicates in the file in config/config.dev.json
+namespace YourNameSpace;
+
+use Kolter\PLoL\Interfaces\OutputInterface;
+
+class TextOutput implements OutputInterface
+{
+
+    public function load($resource){
+        $result =$resource;
+        $result = str_replace('{','',$result);
+        $result = str_replace('}','',$result);
+        $result = str_replace('[','<br>',$result);
+        $result = str_replace(']<br>','',$result);
+        $result = str_replace('"','',$result);
+        $result = str_replace(',','<br>',$result);
+        return $result;
+    }
+}
+
 ```
 
-#### setRegion(String $region) void
-Sets the region of the request.
+So this will output the resource as text. Then you just have to add it to the resource you want to output this way
 
-```php
-$game = (new Champion())->setRegion("na");
-```
+``` php
+$champion = new Champion('{YOUR API KEY HERE'})->setOutputMode(new TextOutput());
 
-#### setOutputMode(string $outputMode) void
-Sets the output mode of the resource. it may be:
-
-**arr:** Array
-
-**obj:** PHP Oject
-
-**json:** JSON (Javascript Object)
-
-**yaml:** Yaml
-
-```php
-$game = (new Champion())->setOutputMode("obj");
-```
-
-#### renewCache() void
-Shortcode to setCacheTimeExpired (0).
-
-```php
-$game = (new Champion())->renewCache();
 ```

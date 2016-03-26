@@ -1,9 +1,9 @@
 FeaturedGames extends [ResourceHandler](ResourceHandler.md)
 -------------
-Consults the [League of Legends API](https://developer.riotgames.com/api/) to more information.
+Consults the [League of Legends API](https://developer.riotgames.com/api/methods#!/977) to more information.
 
 ### API
-#### featured() JsonHandler
+#### featured() 
 return a collection of featured games.
 ``` php
 $resource = (new FeaturedGames())->featured();
