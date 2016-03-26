@@ -4,9 +4,13 @@
 [![Latest Stable Version](https://poser.pugx.org/kolter/plol/v/stable)](https://packagist.org/packages/kolter/plol) [![Total Downloads](https://poser.pugx.org/kolter/plol/downloads)](https://packagist.org/packages/kolter/plol) [![Latest Unstable Version](https://poser.pugx.org/kolter/plol/v/unstable)](https://packagist.org/packages/kolter/plol) [![License](https://poser.pugx.org/kolter/plol/license)](https://packagist.org/packages/kolter/plol)
 
 PLoL is a PHP API that tries to simplify with the                [League of Legends API](https://developer.riotgames.com)
-The main focus of the library is to using POO and the builder of uris. 
-It has been implemented a cache system and a rate-limiter handler.
-
+The main focus is to add versability and scalability.
+It implements a cache system and a rate limiter handler, custom output modes,
+custom error codes handler.
+### Libraries used
+- [guzzlehttp/guzzle](https://github.com/guzzlehttp/guzzle) to handle requests
+- [tedivm/stash](https://github.com/tedivm/stash) to handle the cache system
+- [symfony/yaml](https://github.com/symfony/yaml) in a Output mode class to output results in yaml
 
 
 How to install
@@ -32,38 +36,34 @@ Configuration
 
 
 First of all, get your [League of Legends API KEY](https://developer.riotgames.com/). You will need this api key to instance resources.
-Anyways in the config/config.json folder there are some parameters you may want to change:
+In the config/config.json folder there are some parameters you may want to change:
 
 
-There are some options that you may consider change:
+There are some default options that you may consider change:
 
-- **cache:** sets default to cache results.
-- **output:** default output mode.
--  **cacheFileTimeExpire:** default time cached results to expire.
--   **region:** default region to the api.
+- **cache:** true means resources will be cached, false won't.
+- **region:** default region to the api. (check regions acronym)
 
-You can also use the ConfigHandler class and some static method you can use to edit the file in php.
 
-``` php
-ConfigHandler::setDefaultOutputMode('obj');
-
-```
 
 Basic Api Usage
 -------------
-This library use the PSR-4 implementation of namespaces, this is a basic implementation
+This library use the PSR-4 implementation of namespaces. 
+Basic implementation:
 ``` php
 <?php
 use Kolter\PLoL\Resources\Game;
 
 include('path/to/vendor/autoload.php');
+
 $game = new Game("{YOUR API KEY HERE}");
-$game->get(1245678)->games->fellowPlayers[0]->teamId;
+echo $game->get(1245678);
 ```
 This is basic usage, you will get the result in json (by default). you can set some option in one specified instance.
 
 ``` php
-$game = (new Game("{YOUR API KEY HERE}"))->setCache(false)->setOutputMode('obj');
+$game = (new Game("{YOUR API KEY HERE}"))->setCache(false)
+->setOutputMode(ObjectOutput());
 $game->get(1245678)->games->fellowPlayers[0]->teamId;
 ```
 Take a look at the [ResourceRequest class API](docs/ResourceRequest) for more information.
