@@ -1,0 +1,27 @@
+{
+  "name": "kolter/plol",
+  "description": "PHP interface wrapper to the League of Legends API",
+  "keywords": ["league of legends","lol","api","plol"],
+  "homepage": "https://github.com/Ozumas7/plol",
+  "license": "GPL-3.0",
+  "authors": [
+    {
+      "name": "Pablo Luna",
+      "email": "skyluna7@gmail.com"
+    }
+  ],
+  "require": {
+    "php" : "^5.5.9",
+    "symfony/yaml": "3.0.1",
+    "tedivm/stash": "^0.14",
+    "guzzlehttp/guzzle": "~6.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Kolter\\PLoL\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": { "Kolter\\PLoL\\Tests\\": "tests/" }
+  }
+}

@@ -1,0 +1,13 @@
+<phpunit bootstrap="vendor/autoload.php">
+    <testsuites>
+        <testsuite name="resources">
+            <directory>tests/Resources</directory>
+        </testsuite>
+        <testsuite name="errors">
+            <directory>tests/Error</directory>
+        </testsuite>
+        <testsuite name="cache">
+            <directory>tests/Cache</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

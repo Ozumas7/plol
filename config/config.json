@@ -1,0 +1,42 @@
+{
+    "cache": true,
+    "region": "euw",
+    "regions": {
+        "euw":{
+            "plataform": "EUW1"
+        },
+        "na":{
+            "plataform": "NA1"
+        },
+        "eune":{
+            "plataform": "EUN1"
+        },
+        "kr":{
+            "plataform": "KR"
+        },
+        "br":{
+            "plataform": "BR1"
+        },
+        "lan":{
+            "plataform": "LA1"
+        },
+        "las":{
+            "plataform": "LA2"
+        },
+        "oce":{
+            "plataform": "OC1"
+        },
+        "tr":{
+            "plataform": "TR1"
+        },
+        "ru":{
+            "plataform": "RU"
+        },
+        "pbe":{
+            "plataform": "PBE1"
+        },
+        "global":{
+            "plataform": ""
+        }
+    }
+}

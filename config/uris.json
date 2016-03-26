@@ -1,0 +1,132 @@
+{
+    "uri": "https://{regionbase}.api.pvp.net/{base}?api_key={apikey}{parameters}",
+    "api_lol": "api/lol/{region}/v{version}/{resource}",
+    "mastery": "championmastery/location/{platformid}/player/{resource}",
+    "staticmode": "api/lol/static-data/{region}/v{version}/{resource}",
+    "statusuri": "http://status.leagueoflegends.com/{base}",
+    "statusmode": "{resource}",
+    "observer_mode": "observer-mode/rest/{resource}",
+    "champion": {
+        "apimode": "api_lol",
+        "version": 1.2,
+        "resource": "champion/{type}",
+        "type": {
+            "get": "{id}"
+        }
+    },
+    "championmastery": {
+        "apimode": "mastery",
+        "version": 1,
+        "resource": "{summonerid}/{type}",
+        "type":{
+            "champion":"champion/{championid}",
+            "champions":"champions",
+            "score": "score",
+            "topchampions": "topchampions"
+        }
+
+
+    },
+    "game": {
+        "apimode": "api_lol",
+        "version": 1.3,
+        "resource": "game/{type}",
+        "type": {
+            "get": "by-summoner/{id}/recent"
+        }
+    },
+    "league": {
+        "apimode": "api_lol",
+        "version": 2.5,
+        "resource": "league/{type}",
+        "type": {
+            "bysummoner": "by-summoner/{id}",
+            "bysummonerentry": "by-summoner/{id}/entry",
+            "byteam": "by-team/{id}",
+            "byteamentry": "by-team/{id}/entry",
+            "challenger": "challenger",
+            "master": "master"
+        }
+    },
+    "summoner": {
+        "apimode": "api_lol",
+        "version": 1.4,
+        "resource": "summoner/{type}",
+        "type": {
+            "byname": "by-name/{id}",
+            "byid": "{id}",
+            "masteries": "{id}/masteries",
+            "runes": "{id}/runes",
+            "namebyid": "{id}/name"
+        }
+    },
+    "currentgame": {
+        "apimode": "observer_mode",
+        "resource": "consumer/{type}",
+        "type": {
+            "spectatorgameinfo": "getSpectatorGameInfo/{platformid}/{summonerid}"
+        },
+        "version": 1
+    },
+    "featuredgames": {
+        "apimode": "observer_mode",
+        "resource": "{type}",
+        "type": {
+            "featured": "featured"
+        },
+        "version": 1
+    },
+    "staticdata": {
+        "apimode": "staticmode",
+        "version": 1.2,
+        "resource": "{type}",
+        "type": {
+            "champion": "champion/{id}",
+            "item": "item/{id}",
+            "languagestrings": "language-strings",
+            "languages": "languages",
+            "map": "map",
+            "mastery": "mastery/{id}",
+            "realm": "realm",
+            "rune": "rune/{id}",
+            "summonerspell": "summoner-spell/{id}",
+            "versions": "versions"
+        }
+    },
+    "status": {
+        "resource": "shards{type}",
+        "type": {
+            "all": "",
+            "byregion": "/{regionRequest}"
+        },
+        "apimode": "statusmode",
+        "version": ""
+    },
+    "match": {
+        "apimode": "api_lol",
+        "version": 2.2,
+        "resource": "{type}",
+        "type": {
+            "byid": "match/{id}",
+            "bysummoner": "matchlist/{id}"
+        }
+    },
+    "stats": {
+        "apimode": "api_lol",
+        "version": 1.3,
+        "resource": "stats/by-summoner/{type}",
+        "type": {
+            "ranked": "{id}/ranked",
+            "summary": "{id}/summary"
+        }
+    },
+    "team": {
+        "apimode": "api_lol",
+        "version": 2.4,
+        "resource": "team/{type}",
+        "type": {
+            "bysummoner": "by-summoner/{id}",
+            "byid": "{id}"
+        }
+    }
+}

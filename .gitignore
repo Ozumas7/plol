@@ -1,0 +1,6 @@
+/index.php
+/vendor
+/composer.lock
+/.idea
+/config/config.dev.json
+/php-cs-fixer.phar
